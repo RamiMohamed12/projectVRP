@@ -1,0 +1,4 @@
+Instance,Computed Cost,Optimal Cost,Gap (%),Routes,Time (s)
+A-n32-k5.vrp,797.45,784.00,1.72,5,300.66
+B-n31-k5.vrp,681.92,672.00,1.48,5,301.67
+CMT6.vrp,578.78,555.43,4.20,5,308.00

@@ -1,0 +1,45 @@
+# VRP Solver Configuration
+# Algorithm parameters for Local Search + VND + Simulated Annealing + Tabu Search
+
+# Simulated Annealing Parameters
+simulated_annealing:
+  initial_temperature: 1000.0      # Initial temperature for SA
+  final_temperature: 0.1           # Final temperature (stopping criterion)
+  alpha: 0.95                      # Cooling rate (temperature multiplier)
+  iterations_per_temperature: 100  # Number of iterations at each temperature level
+  
+# Tabu Search Parameters
+tabu_search:
+  tabu_tenure: 20                  # Number of iterations a move stays in tabu list
+  tabu_tenure_random_range: 10     # Random variation for tabu tenure (tenure +/- random)
+  aspiration_enabled: true         # Enable aspiration criterion (accept tabu move if it's best so far)
+
+# Variable Neighborhood Descent (VND) Parameters
+vnd:
+  neighborhoods:
+    - swap                         # Swap two customers between routes
+    - relocate                     # Move one customer to another route
+    - two_opt                      # 2-opt intra-route optimization
+    - cross_exchange               # Exchange segments between two routes
+  max_iterations_without_improvement: 50  # Stop VND if no improvement found
+
+# Local Search Parameters
+local_search:
+  max_iterations: 1000             # Maximum number of overall iterations
+  max_iterations_without_improvement: 200  # Stop if no improvement for this many iterations
+  
+# Initial Solution Parameters
+initial_solution:
+  method: "nearest_neighbor"       # Method: "nearest_neighbor", "savings", "random"
+  randomness: 0.1                  # Randomness factor for construction (0.0 = greedy, 1.0 = random)
+
+# General Parameters
+general:
+  random_seed: 42                  # Random seed for reproducibility
+  verbose: true                    # Print progress information
+  time_limit_seconds: 300          # Maximum time limit per instance (in seconds)
+  
+# Solution Quality Parameters
+quality:
+  target_gap_percentage: 7.0       # Target gap from optimal solution (%)
+  penalty_capacity_violation: 10000  # Penalty for capacity constraint violations
