@@ -17,14 +17,16 @@ projectVRP/
 │   ├── *.vrp                      # VRPLIB format instances
 │   ├── *.sol                      # Optimal solutions
 │   └── *.txt                      # Solomon format instances
-├── solutions/                      # Computed solutions output
+├── solutions/                      # Computed solutions output (generated)
 │   ├── *_computed.sol             # Solutions found by our algorithm
 │   └── summary_results.csv        # Summary of all results
-└── analysis_results/               # Statistical analysis results
+└── analysis_results/               # Statistical analysis results (generated)
     ├── plots/                      # Visualization plots
     ├── csv/                        # Experiment data in CSV format
     └── recommended_config.yaml     # Best parameter configuration
 ```
+
+**Note:** The `solutions/`, `solutions_TW/`, `solutions_TW_GA/`, and `analysis_results/` directories contain generated files that are not tracked by Git. These files will be created when you run the notebooks.
 
 ## 🚀 Getting Started
 
