@@ -1,0 +1,75 @@
+# Configuration pour le solveur VRPTW avec ALNS
+# Paramètres de l'algorithme : Clark-Wright + VND + ALNS
+
+# Paramètres Clark-Wright
+clark_wright:
+  lambda_parameter: 1.0              # Paramètre lambda pour le calcul des économies
+  randomness: 0.15                   # Facteur d'aléatoire dans la construction (0.0 = déterministe)
+
+# Paramètres Variable Neighborhood Descent (VND)
+vnd:
+  neighborhoods:
+    - relocate                        # Déplacer un client vers une autre route
+    - swap                            # Échanger deux clients entre routes différentes
+    - two_opt                         # Optimisation 2-opt intra-route
+  max_iterations_without_improvement: 30  # Arrêter VND si aucune amélioration
+
+# Paramètres Adaptive Large Neighborhood Search (ALNS)
+alns:
+  max_iterations: 5000                # Nombre maximum d'itérations
+  segment_iterations: 100             # Itérations par segment (pour adaptation)
+  destroy_percentage_min: 0.1         # Pourcentage minimum de clients à détruire
+  destroy_percentage_max: 0.4         # Pourcentage maximum de clients à détruire
+  
+  # Paramètres de température (Simulated Annealing dans ALNS)
+  initial_temperature: 500.0          # Température initiale
+  cooling_rate: 0.9975                # Taux de refroidissement
+  
+  # Opérateurs de destruction
+  destroy_operators:
+    - random_removal                  # Suppression aléatoire de clients
+    - worst_removal                   # Suppression des clients les plus coûteux
+    - shaw_removal                    # Suppression de clients similaires (proximité spatiale/temporelle)
+    - route_removal                   # Suppression d'une route complète
+    
+  # Opérateurs de réparation
+  repair_operators:
+    - greedy_insertion                # Insertion gloutonne
+    - regret_insertion                # Insertion basée sur le regret
+    - best_insertion                  # Meilleure insertion
+    
+  # Poids des scores pour l'adaptation
+  weights:
+    score_best_solution: 33           # Nouvelle meilleure solution globale
+    score_better_solution: 9          # Solution améliorant la solution courante
+    score_accepted_solution: 3        # Solution acceptée (mais pas meilleure)
+    score_rejected_solution: 0        # Solution rejetée
+    
+  # Paramètres d'adaptation des poids
+  adaptation:
+    reaction_factor: 0.1              # Vitesse de réaction (0.0 = lent, 1.0 = rapide)
+    decay_parameter: 0.8              # Décroissance des poids (0.0 = oubli complet)
+
+# Contraintes du problème
+constraints:
+  capacity_penalty: 10000             # Pénalité pour violation de capacité
+  time_window_penalty: 10000          # Pénalité pour violation de fenêtres temporelles
+  tolerance_time_window: 0.01         # Tolérance pour les fenêtres temporelles
+
+# Paramètres généraux
+general:
+  random_seed: 42                     # Graine aléatoire pour reproductibilité
+  verbose: true                       # Afficher les informations de progression
+  time_limit_seconds: 600             # Limite de temps par instance (secondes)
+  apply_vnd_frequency: 50             # Appliquer VND tous les N itérations
+  
+# Paramètres de qualité de solution
+quality:
+  target_gap_percentage: 5.0          # Écart cible par rapport à la solution optimale (%)
+  
+# Paramètres de visualisation
+visualization:
+  plot_routes: true                   # Générer des graphiques des routes
+  plot_convergence: true              # Générer des graphiques de convergence
+  plot_dpi: 300                       # Résolution des graphiques (DPI)
+  plot_figsize: [12, 8]               # Taille des figures [largeur, hauteur]
