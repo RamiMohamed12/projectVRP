@@ -1,0 +1,10 @@
+Paramètre,Valeur,Coût_Moyen
+Température Initiale,500.0,3634.080091304189
+Température Initiale,1000.0,3686.9314419528982
+Température Initiale,2000.0,3805.608433595266
+Facteur Réaction,0.05,3701.1234344579843
+Facteur Réaction,0.1,3714.0657974657056
+Facteur Réaction,0.2,3711.430734928663
+Durée Tabou,5.0,3672.935820286484
+Durée Tabou,10.0,3691.0856640281636
+Durée Tabou,20.0,3762.598482537705

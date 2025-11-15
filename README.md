@@ -1,98 +1,92 @@
-# CVRP Solver - Hybrid Metaheuristic Approach
+# CVRP Solver – Approche Métaheuristique Hybride
 
-A comprehensive solution for solving Capacitated Vehicle Routing Problems (CVRP) using a hybrid metaheuristic algorithm combining Local Search, Variable Neighborhood Descent (VND), Simulated Annealing (SA), and Tabu Search.
+Une solution complète pour résoudre les problèmes de routage de véhicules capacitaires (CVRP) en utilisant un algorithme métaheuristique hybride combinant la recherche locale, le Variable Neighborhood Descent (VND), le Recuit Simulé (SA) et la Recherche Tabou.
 
-## 🎯 Objective
+## 🎯 Objectif
 
-Find high-quality solutions for CVRP instances **without time windows** that are within **7% gap** from the optimal solution.
+Trouver des solutions de haute qualité pour des instances de CVRP sans fenêtres de temps, avec un écart maximum de 7 % par rapport à la solution optimale.
 
-## 📁 Project Structure
+## 📁 Structure du Projet
 
 ```
 projectVRP/
-├── config.yaml                      # Algorithm parameters configuration
-├── cvrp_solver.ipynb               # Main CVRP solver notebook
-├── statistical_analysis.ipynb      # Parameter tuning and analysis
-├── data/                           # VRP instances and optimal solutions
-│   ├── *.vrp                      # VRPLIB format instances
-│   ├── *.sol                      # Optimal solutions
-│   └── *.txt                      # Solomon format instances
-├── solutions/                      # Computed solutions output
-│   ├── *_computed.sol             # Solutions found by our algorithm
-│   └── summary_results.csv        # Summary of all results
-└── analysis_results/               # Statistical analysis results
-    ├── plots/                      # Visualization plots
-    ├── csv/                        # Experiment data in CSV format
-    └── recommended_config.yaml     # Best parameter configuration
+├── config.yaml                      # Configuration des paramètres de l'algorithme
+├── cvrp_solver.ipynb               # Notebook principal du solveur CVRP
+├── statistical_analysis.ipynb      # Analyse et réglage des paramètres
+├── data/                           # Instances VRP et solutions optimales
+│   ├── *.vrp                      # Instances au format VRPLIB
+│   ├── *.sol                      # Solutions optimales
+│   └── *.txt                      # Instances au format Solomon
+├── solutions/                      # Résultats calculés
+│   ├── *_computed.sol             # Solutions trouvées par l'algorithme
+│   └── summary_results.csv        # Résumé de tous les résultats
+└── analysis_results/               # Résultats d'analyse statistique
+    ├── plots/                      # Graphiques de visualisation
+    ├── csv/                        # Données d'expérience au format CSV
+    └── recommended_config.yaml     # Configuration recommandée
 ```
 
-## 🚀 Getting Started
+## 🚀 Démarrage
 
-### Prerequisites
+### Prérequis
 
-Install required Python packages:
+Installer les packages Python nécessaires :
 
 ```bash
 pip install numpy vrplib pyyaml pandas matplotlib seaborn jupyter
 ```
 
-### Quick Start
+### Lancement Rapide
 
-1. **Run the CVRP Solver:**
-   Open `cvrp_solver.ipynb` and run all cells to:
-   - Load CVRP instances from the data folder
-   - Apply the hybrid metaheuristic algorithm
-   - Save computed solutions to the solutions folder
-   - Compare with optimal solutions and calculate gaps
+1. **Exécuter le Solveur CVRP :**
+   - Charger les instances CVRP depuis le dossier data
+   - Appliquer l’algorithme métaheuristique hybride
+   - Sauvegarder les solutions dans le dossier solutions
+   - Comparer avec les solutions optimales et calculer les écarts
 
-2. **Perform Statistical Analysis:**
-   Open `statistical_analysis.ipynb` and run all cells to:
-   - Test different parameter configurations
-   - Generate plots showing parameter impacts
-   - Export results to CSV files
-   - Get recommended parameter values
+2. **Effectuer l’Analyse Statistique :**
+   - Tester différentes configurations de paramètres
+   - Générer des graphiques montrant l’impact des paramètres
+   - Exporter les résultats au format CSV
+   - Obtenir les valeurs de paramètres recommandées
 
-## 🧮 Algorithm Components
+## 🧮 Composants de l’Algorithme
 
-### 1. Initial Solution Construction
-- **Nearest Neighbor Heuristic**: Constructs feasible initial routes
-- Configurable randomness for diversification
+### 1. Construction de la Solution Initiale
+- Heuristique du Plus Proche Voisin
+- Aléa configurable pour diversifier les solutions
 
 ### 2. Variable Neighborhood Descent (VND)
-Systematic exploration of multiple neighborhoods:
-- **Swap**: Exchange customers between different routes
-- **Relocate**: Move a customer to another route
-- **2-opt**: Intra-route optimization
-- **Cross-exchange**: Exchange segments between routes
+- Swap, Relocate, 2-opt, Cross-exchange
 
-### 3. Simulated Annealing (SA)
-- Accepts worse solutions with decreasing probability
-- Helps escape local optima
-- Cooling schedule: T = T × α
+### 3. Recuit Simulé (SA)
+- Acceptation probabiliste de solutions moins bonnes
+- Échappe aux optima locaux
+- Programme de refroidissement : T = T × α
 
-### 4. Tabu Search
-- Memory structure to avoid cycling
-- Dynamic tabu tenure with randomization
-- Aspiration criterion for accepting tabu moves
+### 4. Recherche Tabou
+- Mémoire pour éviter les cycles
+- Durée tabou dynamique avec randomisation
+- Critère d’aspiration pour accepter les mouvements tabous
 
 ## ⚙️ Configuration
 
-Edit `config.yaml` to adjust algorithm parameters:
+Modifier `config.yaml` pour ajuster les paramètres :
 
 ```yaml
 simulated_annealing:
-  initial_temperature: 1000.0      # Starting temperature
-  final_temperature: 0.1           # Stopping temperature
-  alpha: 0.95                      # Cooling rate
-  iterations_per_temperature: 100  # Iterations at each temp
+  initial_temperature: 1000.0
+  final_temperature: 0.1
+  alpha: 0.95
+  iterations_per_temperature: 100
 
 tabu_search:
-  tabu_tenure: 20                  # Tabu list size
-  tabu_tenure_random_range: 10     # Random variation
-  aspiration_enabled: true         # Accept tabu if best so far
+  tabu_tenure: 20
+  tabu_tenure_random_range: 10
+  aspiration_enabled: true
 
 vnd:
-  neighborhoods:                   # Neighborhood order
+  neighborhoods:
     - swap
     - relocate
     - two_opt
@@ -104,70 +98,28 @@ local_search:
   max_iterations_without_improvement: 200
 
 quality:
-  target_gap_percentage: 7.0       # Target quality (%)
+  target_gap_percentage: 7.0
 ```
 
-## 📊 Statistical Analysis
+## 📊 Analyse Statistique
 
-The `statistical_analysis.ipynb` notebook performs comprehensive parameter tuning:
+- Tests d’impact de la température initiale, du taux de refroidissement, de la durée tabou et du nombre d’itérations
+- Génération de graphiques et export CSV
+- Configuration recommandée basée sur les expériences
 
-### Experiments Conducted:
-1. **Initial Temperature Impact**: Tests values from 100 to 5000
-2. **Cooling Rate (Alpha) Impact**: Tests values from 0.85 to 0.99
-3. **Tabu Tenure Impact**: Tests values from 5 to 50
-4. **Iterations per Temperature Impact**: Tests values from 50 to 300
+## 📈 Résultats
 
-### Outputs:
-- **Plots**: Line charts, box plots, and heatmaps showing parameter effects
-- **CSV Files**: Detailed results for each experiment
-- **Recommended Config**: Best parameter values based on experiments
+- Fichiers de solution `.sol` et résumé CSV
+- Visualisations : convergence du coût, sensibilité aux paramètres, distribution des écarts
 
-## 📈 Results
+## 🎓 Comprendre l’Algorithme
 
-The solver generates:
+- Recherche Locale : amélioration rapide
+- VND : exploration systématique
+- Recuit Simulé : échappement aux optima locaux
+- Recherche Tabou : évite les cycles
 
-1. **Solution Files** (`.sol` format):
-   ```
-   Route #1: 3 5 8 12
-   Route #2: 2 7 11 4
-   Cost 247
-   ```
-
-2. **Summary CSV** with metrics:
-   - Instance name
-   - Computed cost
-   - Optimal cost (if available)
-   - Gap percentage
-   - Number of routes
-   - Computation time
-
-3. **Visualizations**:
-   - Cost convergence over iterations
-   - Parameter sensitivity analysis
-   - Gap distribution box plots
-   - Parameter interaction heatmaps
-
-## 🎓 Understanding the Algorithm
-
-### Why This Combination?
-
-1. **Local Search**: Fast improvement within neighborhoods
-2. **VND**: Systematic exploration prevents premature convergence
-3. **Simulated Annealing**: Probabilistic acceptance enables escaping local optima
-4. **Tabu Search**: Memory prevents cycling and revisiting solutions
-
-### Key Features:
-
-- ✅ Handles CVRP without time windows
-- ✅ Respects vehicle capacity constraints
-- ✅ Configurable via YAML file
-- ✅ Automatic solution quality comparison
-- ✅ Comprehensive statistical analysis
-- ✅ Reproducible results (random seed control)
-
-## 📝 Solution Format
-
-Solutions are saved in VRPLIB format for easy comparison:
+## 📝 Format des Solutions
 
 ```
 Route #1: 1
@@ -179,53 +131,41 @@ Cost 247
 
 ## 🔍 Validation
 
-The solver automatically:
-- Verifies capacity constraints
-- Compares with optimal solutions (if available)
-- Calculates gap percentage
-- Reports whether target gap (7%) is achieved
+- Vérification des contraintes de capacité
+- Comparaison avec solutions optimales
+- Calcul de l’écart en pourcentage
+- Vérification de l’écart cible (7 %)
 
-## 🛠️ Extending the Solver
+## 🛠️ Extension du Solveur
 
-### For CVRP with Time Windows:
-After validating the CVRP solver, you can extend it to handle time windows by:
-1. Adding time window constraints to feasibility checks
-2. Incorporating time calculations in neighborhood operators
-3. Penalizing time window violations in the objective function
+- CVRP avec fenêtres de temps : ajouter contraintes et pénalisation
+- Nouveaux voisinages : définir fonction et ajouter au VND et config.yaml
 
-### Adding New Neighborhoods:
-1. Define the operator function following the existing pattern
-2. Add it to the `neighborhoods` dictionary in VND
-3. Include it in the `config.yaml` neighborhood list
+## 📚 Références
 
-## 📚 References
+- VRPLIB : http://vrp.galgos.inf.puc-rio.br/index.php/en/
+- Documentation VRP : voir `vrplib.md`
+- Instances de test : dossier `data/`
 
-- **VRPLIB**: http://vrp.galgos.inf.puc-rio.br/index.php/en/
-- **VRP Documentation**: See `vrplib.md` for format details
-- **Test Instances**: Located in `data/` folder
+## 🤝 Contribution
 
-## 🤝 Contributing
+- Expériences avec différents paramètres
+- Test sur diverses tailles d’instances
+- Comparaison et mise à jour de la config recommandée
+- Documentation dans notebook d’analyse
 
-To improve the solver:
-1. Run experiments with different parameter values
-2. Test on various instance sizes
-3. Compare results and update recommended config
-4. Document findings in the analysis notebook
+## 📄 Licence
 
-## 📄 License
+Projet à usage académique et recherche.
 
-This project is for academic and research purposes.
+## ✨ Résumé des Fonctionnalités
 
-## ✨ Features Summary
+- Métaheuristique hybride (4 techniques)
+- Support multiples formats VRP
+- Paramètres configurables via YAML
+- Analyse statistique et tuning
+- Sauvegarde et comparaison automatique
+- Visualisation complète
+- Objectif : ≤ 7 % d’écart par rapport à optimal
 
-- 🧩 Hybrid metaheuristic combining 4 optimization techniques
-- 📦 Handles multiple VRP instance formats
-- ⚡ Configurable parameters via YAML
-- 📊 Statistical analysis and parameter tuning
-- 💾 Automatic solution saving and comparison
-- 📈 Comprehensive visualization
-- 🎯 Target: ≤ 7% gap from optimal solutions
-
----
-
-**Happy Optimizing! 🚛📦**
+**Bonne optimisation ! 🚛📦**
