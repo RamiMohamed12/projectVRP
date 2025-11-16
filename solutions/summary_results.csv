@@ -1,3 +1,5 @@
-Instance,Computed Cost,Optimal Cost,Gap (%),Routes,Time (s)
-A-n32-k5.vrp,797.45,784.00,1.72,5,303.44
-B-n31-k5.vrp,676.09,672.00,0.61,5,303.45
+Instance,Coût Calculé,Coût Optimal,Écart (%),Itinéraires,Temps (s)
+A-n32-k5.vrp,910.09,784.00,16.08,5,6.94
+B-n31-k5.vrp,761.60,672.00,13.33,5,5.81
+CMT6.vrp,586.46,555.43,5.59,5,26.23
+Golden_1.vrp,6031.58,5623.47,7.26,9,3215.55

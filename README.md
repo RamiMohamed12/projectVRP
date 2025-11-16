@@ -169,3 +169,49 @@ Projet à usage académique et recherche.
 - Objectif : ≤ 7 % d’écart par rapport à optimal
 
 **Bonne optimisation ! 🚛📦**
+
+## 🖥️ CLI (exécutable)
+
+Le dossier `cli/` contient un script exécutable `solve_cvrp.py` qui reprend les fonctionnalités du notebook pour exécuter une instance depuis le terminal et produire des visualisations.
+
+Exemples:
+
+```
+python cli/solve_cvrp.py --list
+python cli/solve_cvrp.py --instance data/B-n31-k5.vrp --plot
+```
+
+## 🖥️ Simple GUI
+
+There's a minimal GUI in `gui/vrp_gui.py` that offers a VS-Code-like quick run interface for the solver:
+
+```
+python gui/vrp_gui.py
+```
+
+The GUI lists instances in `data/`, lets you run the solver, capture console output, and visualize routes and cost history inside the app.
+
+## 🧩 Build Windows executables (.exe)
+
+You can package the CLI or the GUI into a single-file Windows executable using PyInstaller. This repository includes helper scripts under `tools/`.
+
+1) Activate venv and install PyInstaller:
+
+```powershell
+.venv\Scripts\Activate.ps1
+pip install pyinstaller
+```
+
+2) Build GUI exe:
+
+```powershell
+.\tools\build_exe.ps1 -target gui
+```
+
+3) Build CLI exe:
+
+```powershell
+.\tools\build_exe.ps1 -target cli
+```
+
+This produces a single executable in `dist\` (e.g., `dist\projectVRP-GUI.exe`). The build process includes the `data/` directory and `config.yaml` via PyInstaller `--add-data` flags and the code uses a resource helper to find these files when running from the bundled exe.
